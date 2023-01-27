@@ -2,6 +2,7 @@ package com.example.kanye.business;
 
 import com.example.kanye.data.Quote;
 import com.example.kanye.data.QuoteRepository;
+import com.example.kanye.util.QuoteType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ public class QuoteService {
         this.quoteRepository = quoteRepository;
     }
 
+    public String getStringForPrinting(Quote quote) { // OPTIMIZE
+        return quote.toStringForPrinting();
+    }
+
     public void saveQuoteFromExternal(Quote quote) {
         this.quoteRepository.save(quote);
         LOGGER.info("Quote extracted from external API is now saved to internal database:\n" + quote.toString());
@@ -29,13 +34,17 @@ public class QuoteService {
         );
     }
 
-    // FIXME
     public List<Quote> getAllQuotesByAuthor(String quoteAuthor) {
         Optional<List<Quote>> quotes = this.quoteRepository.findAllQuotesByAuthor(quoteAuthor);
         if (quotes == null) {
             throw new RuntimeException("No quotes found for this author.");
         }
         return quotes.get();
+    }
+
+    // TODO
+    public List<Quote> getQuotesByType(QuoteType quoteType, int numberOfQuotes) {
+        return null;
     }
 
 }

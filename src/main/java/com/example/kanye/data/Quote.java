@@ -49,4 +49,10 @@ public class Quote {
                 ", quote=" + quoteString +
                 '}';
     }
+
+    public String toStringForPrinting() {
+        String result = getQuoteAuthor() + ": \"" +
+                getQuote() + "\"";
+        return result;
+    }
 }
