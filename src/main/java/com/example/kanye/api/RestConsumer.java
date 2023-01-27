@@ -18,7 +18,7 @@ public class RestConsumer {
     @Autowired
     private RestTemplate restTemplate;
 
-    public Quote getQuoteByAuthorFromExternal(QuoteType quoteType) {
+    public Quote getQuoteByTypeFromExternal(QuoteType quoteType) {
         Quote quote = null;
         switch(quoteType) {
             case CELEBRITY:
