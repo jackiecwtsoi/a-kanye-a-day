@@ -6,7 +6,6 @@ import com.example.kanye.data.Quote;
 import com.example.kanye.util.QuoteType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -39,9 +38,25 @@ public class QuoteController {
         }
         Quote quote = this.restConsumer.getQuoteByTypeFromExternal(quoteType);
         this.quoteService.saveQuoteFromExternal(quote);
-        return this.quoteService.getStringForPrinting(quote);
+        return quote.toStringForPrinting();
     }
 
+    // Get a random quote or all quotes by a specific author
+    @GetMapping(path="")
+    public Object getQuoteByAuthor(
+            @RequestParam(name="author", required = true) String quoteAuthor,
+            @RequestParam(name="all", required = false) Boolean ifAll) {
+        if (ifAll != null) {
+            if (ifAll) {
+                List<Quote> quotes = this.quoteService.getAllQuotesByAuthor(quoteAuthor);
+                return quotes;
+            }
+        }
+        Quote randomQuote = this.quoteService.getRandomQuoteByAuthor(quoteAuthor);
+        return randomQuote.toStringForPrinting();
+    }
+
+    // FIXME
     // Access a specified number of random quotes based on a specific quote type
     @GetMapping(path="/{quoteTypeString}/{numberOfQuotes}")
     public List<Quote> getQuotes(
@@ -59,13 +74,5 @@ public class QuoteController {
         } else {
             throw new IllegalArgumentException();
         }
-    }
-
-    // FIXME: Is there a better way to organize searching quotes by author?
-    @GetMapping(path="/celebrity/kanye")
-    public List<Quote> getAllKanyeQuotes() {
-        List<Quote> quotes = this.quoteService.getAllQuotesByAuthor("Kanye West");
-//        quotes.forEach(quote -> System.out.println(quote.toString()));
-        return quotes;
     }
 }

@@ -5,12 +5,10 @@ import com.example.kanye.data.QuoteRepository;
 import com.example.kanye.util.QuoteType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class QuoteService {
@@ -35,11 +33,11 @@ public class QuoteService {
     }
 
     public List<Quote> getAllQuotesByAuthor(String quoteAuthor) {
-        Optional<List<Quote>> quotes = this.quoteRepository.findAllQuotesByAuthor(quoteAuthor);
-        if (quotes == null) {
-            throw new RuntimeException("No quotes found for this author.");
+        List<Quote> quotes = this.quoteRepository.findAllQuotesByAuthor(quoteAuthor).get();
+        if (quotes.isEmpty()) {
+            throw new RuntimeException("There are no quotes by " + quoteAuthor + " found in our internal database.");
         }
-        return quotes.get();
+        return quotes;
     }
 
     // TODO
@@ -47,4 +45,10 @@ public class QuoteService {
         return null;
     }
 
+    // OPTIMIZE: Instead use a more general getRandomQuote function that can take in multiple parameters?
+    public Quote getRandomQuoteByAuthor(String quoteAuthor) {
+        List<Quote> quotes = getAllQuotesByAuthor(quoteAuthor);
+        Random rand = new Random();
+        return quotes.get(rand.nextInt(quotes.size()));
+    }
 }

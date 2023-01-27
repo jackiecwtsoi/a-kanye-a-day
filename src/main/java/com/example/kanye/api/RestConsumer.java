@@ -39,6 +39,7 @@ public class RestConsumer {
                         "https://api.breakingbadquotes.xyz/v1/quotes", //FIXME: Currently only <Breaking Bad>, need to extend for other series
                         PopCultureQuote[].class
                 );
+                // game of thrones: https://api.gameofthronesquotes.xyz/v1/random
                 if (quotes.length != 0) {
                     quote = quotes[0];
                 } else {
