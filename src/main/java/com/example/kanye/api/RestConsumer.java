@@ -3,6 +3,8 @@ package com.example.kanye.api;
 import com.example.kanye.data.Quote;
 import com.example.kanye.model.KanyeQuote;
 import com.example.kanye.model.AnimeQuote;
+import com.example.kanye.model.popculture.PopCultureQuote;
+import com.example.kanye.util.QuoteType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,22 +18,35 @@ public class RestConsumer {
     @Autowired
     private RestTemplate restTemplate;
 
-    public Quote getQuoteByAuthorFromExternal(String quoteType) {
+    public Quote getQuoteByAuthorFromExternal(QuoteType quoteType) {
         Quote quote = null;
         switch(quoteType) {
-            case "CELEBRITY":
+            case CELEBRITY:
                 quote = restTemplate.getForObject(
-                        "https://api.kanye.rest/", KanyeQuote.class
+                        "https://api.kanye.rest/",
+                        KanyeQuote.class
                 );
                 quote.setQuoteAuthor("Kanye West");
                 break;
-            case "ANIME":
+            case ANIME:
                 quote = restTemplate.getForObject(
-                        "https://animechan.vercel.app/api/random", AnimeQuote.class
+                        "https://animechan.vercel.app/api/random",
+                        AnimeQuote.class
                 );
                 break;
+            case POP_CULTURE:
+                Quote[] quotes = restTemplate.getForObject(
+                        "https://api.breakingbadquotes.xyz/v1/quotes", //FIXME: Currently only <Breaking Bad>, need to extend for other series
+                        PopCultureQuote[].class
+                );
+                if (quotes.length != 0) {
+                    quote = quotes[0];
+                } else {
+                    throw new NullPointerException("The extracted list does not contain any quote.");
+                }
+                break;
         }
-        LOGGER.info("Quote of type" + quoteType + " retrieved from external API.");
+        LOGGER.info("Quote of type " + quoteType.toString().toUpperCase() + " retrieved from external API.");
         return quote;
     }
 
