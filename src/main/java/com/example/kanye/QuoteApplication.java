@@ -6,11 +6,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class KanyeApplication {
-	private static final Logger logger = LoggerFactory.getLogger(KanyeApplication.class);
+public class QuoteApplication {
+	private static final Logger LOGGER = LoggerFactory.getLogger(QuoteApplication.class);
 
 	public static void main(String[] args) {
-		SpringApplication.run(KanyeApplication.class, args);
+		SpringApplication.run(QuoteApplication.class, args);
 	}
 
 }

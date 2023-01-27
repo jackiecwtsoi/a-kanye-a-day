@@ -8,7 +8,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 
 public class AppStartupEvent implements ApplicationListener<ApplicationReadyEvent> {
-    Logger logger = LoggerFactory.getLogger(AppStartupEvent.class);
+    Logger LOGGER = LoggerFactory.getLogger(AppStartupEvent.class);
 
     private final QuoteRepository quoteRepository;
 
@@ -19,6 +19,6 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
     @Override
     public void onApplicationEvent(ApplicationReadyEvent event) {
         Iterable<Quote> quotes = this.quoteRepository.findAll();
-        quotes.forEach(quote -> logger.info(quote.toString()));
+        quotes.forEach(quote -> LOGGER.info(quote.toString()));
     }
 }

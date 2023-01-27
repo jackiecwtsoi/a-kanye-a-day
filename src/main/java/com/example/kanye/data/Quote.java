@@ -2,6 +2,7 @@ package com.example.kanye.data;
 
 import jakarta.persistence.*;
 
+@Inheritance
 @Entity
 @Table(name="QUOTE")
 public class Quote {
