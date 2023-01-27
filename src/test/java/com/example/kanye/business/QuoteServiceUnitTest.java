@@ -46,6 +46,4 @@ class QuoteServiceUnitTest {
         assertEquals(expectedQuotes, quoteService.getAllQuotesByAuthor("Sample Author"));
     }
 
-
-
 }

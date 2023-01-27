@@ -6,6 +6,7 @@ import com.example.kanye.data.Quote;
 import com.example.kanye.util.QuoteType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController

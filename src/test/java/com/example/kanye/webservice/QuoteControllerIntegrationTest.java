@@ -10,6 +10,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -28,9 +32,11 @@ class QuoteControllerIntegrationTest {
     private MockMvc mockMvc;
 
     private Quote quote1, quote2;
+    private List<String> quoteTypeStrings;
 
     QuoteControllerIntegrationTest() {
         setSampleQuotes();
+        loadQuoteTypeStrings();
     }
 
     void setSampleQuotes() {
@@ -40,6 +46,13 @@ class QuoteControllerIntegrationTest {
         quote2 = new Quote();
         quote2.setQuoteAuthor("Sample Author");
         quote2.setQuote("This is a Java application.");
+    }
+
+    void loadQuoteTypeStrings() {
+        quoteTypeStrings = Stream.of(QuoteType.values())
+                .map(Enum::name)
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
     }
 
     @Test
@@ -53,10 +66,12 @@ class QuoteControllerIntegrationTest {
         when(quoteService.getStringForPrinting(any(Quote.class)))
                 .thenReturn(quote1.toStringForPrinting());
 
-        mockMvc.perform(get("/quote/anime"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(equalTo(expectedString)));
+        for (String quoteTypeString : quoteTypeStrings) {
+            mockMvc.perform(get("/quote/" + quoteTypeString))
+                    .andDo(print())
+                    .andExpect(status().isOk())
+                    .andExpect(content().string(equalTo(expectedString)));
+        }
 
 //        verify(restConsumer).getQuoteByTypeFromExternal(any(QuoteType.class));
     }
@@ -73,5 +88,6 @@ class QuoteControllerIntegrationTest {
 
     @Test
     void getQuotes() {
+        // TODO
     }
 }
