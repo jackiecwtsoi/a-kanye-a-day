@@ -24,6 +24,9 @@ public class Quote {
     @Enumerated(EnumType.STRING)
     private QuoteType quoteType;
 
+    @Transient
+    private Map properties;
+
     public long getQuoteId() {
         return quoteId;
     }
@@ -56,6 +59,14 @@ public class Quote {
         this.quoteType = quoteType;
     }
 
+    public Map getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Map properties) {
+        this.properties = properties;
+    }
+
     @Override
     public String toString() {
         return "Quote{" +
@@ -63,6 +74,7 @@ public class Quote {
                 ", quoteAuthor='" + quoteAuthor + '\'' +
                 ", quoteString='" + quoteString + '\'' +
                 ", quoteType=" + quoteType +
+                ", properties=" + properties +
                 '}';
     }
 

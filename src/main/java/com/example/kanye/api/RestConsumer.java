@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
+
 @Component
 public class RestConsumer {
     Logger LOGGER = LoggerFactory.getLogger(RestConsumer.class);
@@ -18,37 +20,48 @@ public class RestConsumer {
     @Autowired
     private RestTemplate restTemplate;
 
-    public Quote getQuoteByTypeFromExternal(QuoteType quoteType) {
+    public Quote getQuoteByTypeFromExternal(QuoteType quoteType, Map properties) {
         Quote quote = null;
-        switch(quoteType) {
-            case CELEBRITY:
+        String apiUrl = "";
+        switch (quoteType) {
+            case CELEBRITY -> {
                 quote = restTemplate.getForObject(
                         "https://api.kanye.rest/",
                         KanyeQuote.class
                 );
                 quote.setQuoteAuthor("Kanye West");
-                break;
-            case ANIME:
+            }
+            case ANIME -> {
                 quote = restTemplate.getForObject(
                         "https://animechan.vercel.app/api/random",
                         AnimeQuote.class
                 );
-                break;
-            case POP_CULTURE:
-                Quote[] quotes = restTemplate.getForObject(
-                        "https://api.breakingbadquotes.xyz/v1/quotes", //FIXME: Currently only <Breaking Bad>, need to extend for other series
-                        PopCultureQuote[].class
-                );
-                // game of thrones: https://api.gameofthronesquotes.xyz/v1/random
-                if (quotes.length != 0) {
-                    quote = quotes[0];
-                } else {
-                    throw new NullPointerException("The extracted list does not contain any quote.");
+            }
+            case POP_CULTURE -> {
+                try {
+                    String popCultureName = (String) properties.get("popCultureName");
+                    switch (popCultureName) {
+                        case "Breaking Bad" -> apiUrl = "https://api.breakingbadquotes.xyz/v1/quotes";
+                        // FIXME: GOT quotes do not use the same identifiers as breaking bad
+                        case "A Game of Thrones" -> apiUrl = "https://api.gameofthronesquotes.xyz/v1/random/5";
+                    }
+                    Quote[] quotes = restTemplate.getForObject(
+                            apiUrl,
+                            PopCultureQuote[].class
+                    );
+                    if (quotes.length != 0) {
+                        quote = quotes[0];
+                    } else {
+                        throw new NullPointerException("The extracted list does not contain any quote.");
+                    }
+                } catch (NullPointerException e) {
+                    LOGGER.error("No properties specified so we cannot infer the correct pop culture item.");
                 }
-                break;
+            }
         }
         if (quote != null) {
             quote.setQuoteType(quoteType);
+            quote.setProperties(properties);
         } else {
             throw new RuntimeException();
         }

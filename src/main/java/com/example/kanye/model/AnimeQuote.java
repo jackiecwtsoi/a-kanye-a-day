@@ -29,12 +29,6 @@ public class AnimeQuote extends Quote {
 
     @Override
     public String toString() {
-        return "Quote{" +
-                "quoteId=" + super.getQuoteId() +
-                ", anime=" + anime +
-                ", character=" + super.getQuoteAuthor() +
-                ", quote=" + super.getQuote() +
-                ", quoteType=" + super.getQuoteType() +
-                '}';
+        return "This is an Anime quote from " + getAnime() + ":\n" + super.toString();
     }
 }

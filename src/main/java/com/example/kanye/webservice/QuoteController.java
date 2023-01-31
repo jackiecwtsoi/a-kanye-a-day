@@ -3,10 +3,13 @@ package com.example.kanye.webservice;
 import com.example.kanye.api.RestConsumer;
 import com.example.kanye.business.QuoteService;
 import com.example.kanye.data.Quote;
+import com.example.kanye.model.popculture.PopCultureType;
 import com.example.kanye.util.QuoteType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/quote")
@@ -37,7 +40,11 @@ public class QuoteController {
                 return quotes;
             }
         }
-        Quote quote = this.restConsumer.getQuoteByTypeFromExternal(quoteType);
+        // FIXME: delete hardcorded properties
+        Map<String, Object> properties = null;
+//        properties.put("popCultureType", PopCultureType.TV_SERIES);
+//        properties.put("popCultureName", "Breaking Bad");
+        Quote quote = this.restConsumer.getQuoteByTypeFromExternal(quoteType, properties);
         this.quoteService.saveQuoteFromExternal(quote);
         return quote.toStringForPrinting();
     }

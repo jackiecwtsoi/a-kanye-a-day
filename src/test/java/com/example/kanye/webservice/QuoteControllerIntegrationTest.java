@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -60,7 +61,7 @@ class QuoteControllerIntegrationTest {
         String expectedString = "Sample Author: \"Hello, World!\"";
 
         when(restConsumer
-                .getQuoteByTypeFromExternal(any(QuoteType.class)))
+                .getQuoteByTypeFromExternal(any(QuoteType.class), any(Map.class)))
                 .thenReturn(quote1);
         doNothing().when(quoteService).saveQuoteFromExternal(quote1);
         when(quoteService.getStringForPrinting(any(Quote.class)))
@@ -76,7 +77,7 @@ class QuoteControllerIntegrationTest {
 //        verify(restConsumer).getQuoteByTypeFromExternal(any(QuoteType.class));
     }
 
-    @Test
+    @Test // TODO: need to correct placeholder string
     void getAllQuotesFromExternal() throws Exception {
         String expectedString = "hello, ifAll is selected as true.";
 
