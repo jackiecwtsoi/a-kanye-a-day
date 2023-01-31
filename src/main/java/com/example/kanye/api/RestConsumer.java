@@ -47,6 +47,11 @@ public class RestConsumer {
                 }
                 break;
         }
+        if (quote != null) {
+            quote.setQuoteType(quoteType);
+        } else {
+            throw new RuntimeException();
+        }
         LOGGER.info("Quote of type " + quoteType.toString().toUpperCase() + " retrieved from external API.");
         return quote;
     }

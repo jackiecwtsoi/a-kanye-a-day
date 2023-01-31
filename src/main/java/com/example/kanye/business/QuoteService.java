@@ -40,9 +40,12 @@ public class QuoteService {
         return quotes;
     }
 
-    // TODO
-    public List<Quote> getQuotesByType(QuoteType quoteType, int numberOfQuotes) {
-        return null;
+    public List<Quote> getAllQuotesByType(QuoteType quoteType) {
+        List<Quote> quotes = this.quoteRepository.findAllQuotesByType(quoteType).get();
+        if (quotes.isEmpty()) {
+            throw new RuntimeException("There are no quotes of type " + quoteType.toString() + " found in our internal database.");
+        }
+        return quotes;
     }
 
     // OPTIMIZE: Instead use a more general getRandomQuote function that can take in multiple parameters?

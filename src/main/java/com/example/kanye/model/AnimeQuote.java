@@ -34,6 +34,7 @@ public class AnimeQuote extends Quote {
                 ", anime=" + anime +
                 ", character=" + super.getQuoteAuthor() +
                 ", quote=" + super.getQuote() +
+                ", quoteType=" + super.getQuoteType() +
                 '}';
     }
 }

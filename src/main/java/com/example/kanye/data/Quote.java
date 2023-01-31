@@ -1,6 +1,9 @@
 package com.example.kanye.data;
 
+import com.example.kanye.util.QuoteType;
 import jakarta.persistence.*;
+
+import java.util.Map;
 
 @Inheritance
 @Entity
@@ -16,6 +19,10 @@ public class Quote {
 
     @Column(name="QUOTE_STRING")
     private String quoteString;
+
+    @Column(name="QUOTE_TYPE")
+    @Enumerated(EnumType.STRING)
+    private QuoteType quoteType;
 
     public long getQuoteId() {
         return quoteId;
@@ -41,12 +48,21 @@ public class Quote {
         this.quoteString = quote;
     }
 
+    public QuoteType getQuoteType() {
+        return quoteType;
+    }
+
+    public void setQuoteType(QuoteType quoteType) {
+        this.quoteType = quoteType;
+    }
+
     @Override
     public String toString() {
         return "Quote{" +
                 "quoteId=" + quoteId +
-                ", quoteAuthor=" + quoteAuthor +
-                ", quote=" + quoteString +
+                ", quoteAuthor='" + quoteAuthor + '\'' +
+                ", quoteString='" + quoteString + '\'' +
+                ", quoteType=" + quoteType +
                 '}';
     }
 

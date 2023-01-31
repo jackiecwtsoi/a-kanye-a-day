@@ -21,7 +21,7 @@ public class QuoteController {
 
     // Access a random quote based on a specified quote type
     @GetMapping(path="/{quoteTypeString}")
-    public String getQuoteFromExternal(
+    public Object getQuoteFromExternal(
             @PathVariable String quoteTypeString,
             @RequestParam(name="all", required = false) Boolean ifAll
             ) {
@@ -33,7 +33,8 @@ public class QuoteController {
         );
         if (ifAll != null) {
             if (ifAll) {
-                return "hello, ifAll is selected as true."; // TODO: Do we need this???
+                List<Quote> quotes = this.quoteService.getAllQuotesByType(quoteType);
+                return quotes;
             }
         }
         Quote quote = this.restConsumer.getQuoteByTypeFromExternal(quoteType);
@@ -61,7 +62,7 @@ public class QuoteController {
     @GetMapping(path="/{quoteTypeString}/{numberOfQuotes}")
     public List<Quote> getQuotes(
             @PathVariable String quoteTypeString,
-            @PathVariable int numberOfQuotes) {
+            @PathVariable int numberOfQuotes) { // FIXME: do we need number of quotes?
         // convert the path variable string into a QuoteType enum OPTIMIZE
         QuoteType quoteType = QuoteType.valueOf(
                 quoteTypeString
@@ -69,7 +70,7 @@ public class QuoteController {
                         .toUpperCase() // change all to uppercase
         );
         if (numberOfQuotes > 0) {
-            List<Quote> quotes = this.quoteService.getQuotesByType(quoteType, numberOfQuotes);
+            List<Quote> quotes = this.quoteService.getAllQuotesByType(quoteType);
             return quotes;
         } else {
             throw new IllegalArgumentException();
