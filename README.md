@@ -1,0 +1,1 @@
+This is a simple RESTful API that collects and displays quotes from a number of public free quote APIs.
