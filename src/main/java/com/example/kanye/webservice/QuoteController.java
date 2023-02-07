@@ -41,9 +41,9 @@ public class QuoteController {
             }
         }
         // FIXME: delete hardcorded properties
-        Map<String, Object> properties = null;
-//        properties.put("popCultureType", PopCultureType.TV_SERIES);
-//        properties.put("popCultureName", "Breaking Bad");
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("popCultureType", PopCultureType.TV_SERIES);
+        properties.put("popCultureName", "Breaking Bad");
         Quote quote = this.restConsumer.getQuoteByTypeFromExternal(quoteType, properties);
         this.quoteService.saveQuoteFromExternal(quote);
         return quote.toStringForPrinting();

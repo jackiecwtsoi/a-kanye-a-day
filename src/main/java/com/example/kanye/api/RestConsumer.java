@@ -3,11 +3,16 @@ package com.example.kanye.api;
 import com.example.kanye.data.Quote;
 import com.example.kanye.model.KanyeQuote;
 import com.example.kanye.model.AnimeQuote;
+import com.example.kanye.model.popculture.GOTQuote;
 import com.example.kanye.model.popculture.PopCultureQuote;
 import com.example.kanye.util.QuoteType;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import org.apache.tomcat.util.json.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -40,19 +45,34 @@ public class RestConsumer {
             case POP_CULTURE -> {
                 try {
                     String popCultureName = (String) properties.get("popCultureName");
+                    Quote[] quotes = null;
                     switch (popCultureName) {
-                        case "Breaking Bad" -> apiUrl = "https://api.breakingbadquotes.xyz/v1/quotes";
-                        // FIXME: GOT quotes do not use the same identifiers as breaking bad
-                        case "A Game of Thrones" -> apiUrl = "https://api.gameofthronesquotes.xyz/v1/random/5";
-                    }
-                    Quote[] quotes = restTemplate.getForObject(
-                            apiUrl,
-                            PopCultureQuote[].class
-                    );
-                    if (quotes.length != 0) {
-                        quote = quotes[0];
-                    } else {
-                        throw new NullPointerException("The extracted list does not contain any quote.");
+                        case "Breaking Bad":
+                            apiUrl = "https://api.breakingbadquotes.xyz/v1/quotes";
+                            quotes = restTemplate.getForObject(
+                                    apiUrl,
+                                    PopCultureQuote[].class
+                            );
+                            if (quotes.length != 0) {
+                                quote = quotes[0];
+                            } else {
+                                throw new NullPointerException("The extracted list does not contain any quote.");
+                            }
+                            break;
+                        case "A Game of Thrones":
+                            apiUrl = "https://api.gameofthronesquotes.xyz/v1/random/5";
+                            GOTQuote[] gotQuotes = restTemplate.getForObject(
+                                    apiUrl,
+                                    GOTQuote[].class
+                            );
+                            if (gotQuotes.length != 0) {
+                                quote = new Quote();
+                                quote.setQuote(gotQuotes[0].getQuoteString());
+                                quote.setQuoteAuthor(gotQuotes[0].getCharacter().getQuoteAuthor());
+                            } else {
+                                throw new NullPointerException("The extracted list does not contain any quote.");
+                            }
+                            break;
                     }
                 } catch (NullPointerException e) {
                     LOGGER.error("No properties specified so we cannot infer the correct pop culture item.");
