@@ -1,9 +1,6 @@
-package com.example.kanye.model.popculture;
+package com.example.kanye.quote.model.popculture;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
 
 public class GOTCharacter {
     @JsonProperty("name")

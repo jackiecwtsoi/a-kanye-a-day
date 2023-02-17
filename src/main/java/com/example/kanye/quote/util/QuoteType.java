@@ -1,4 +1,4 @@
-package com.example.kanye.util;
+package com.example.kanye.quote.util;
 
 public enum QuoteType {
     CELEBRITY,

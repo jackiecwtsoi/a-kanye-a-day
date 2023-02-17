@@ -1,8 +1,8 @@
-package com.example.kanye.business;
+package com.example.kanye.quote.service;
 
-import com.example.kanye.data.Quote;
-import com.example.kanye.data.QuoteRepository;
-import com.example.kanye.util.QuoteType;
+import com.example.kanye.quote.data.Quote;
+import com.example.kanye.quote.data.QuoteRepository;
+import com.example.kanye.quote.util.QuoteType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

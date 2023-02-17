@@ -1,9 +1,6 @@
-package com.example.kanye.model.popculture;
+package com.example.kanye.quote.model.popculture;
 
-import com.example.kanye.data.Quote;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Transient;
 
 public class GOTQuote {
     @JsonProperty("sentence")

@@ -1,7 +1,8 @@
 package com.example.kanye.business;
 
-import com.example.kanye.data.Quote;
-import com.example.kanye.data.QuoteRepository;
+import com.example.kanye.quote.data.Quote;
+import com.example.kanye.quote.data.QuoteRepository;
+import com.example.kanye.quote.service.QuoteService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
