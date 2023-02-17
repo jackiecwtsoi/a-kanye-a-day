@@ -1,7 +1,7 @@
-package com.example.kanye.data;
+package com.example.kanye.quote.data;
 
 
-import com.example.kanye.util.QuoteType;
+import com.example.kanye.quote.util.QuoteType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

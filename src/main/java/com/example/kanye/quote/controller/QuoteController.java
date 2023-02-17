@@ -1,10 +1,10 @@
-package com.example.kanye.webservice;
+package com.example.kanye.quote.controller;
 
-import com.example.kanye.api.RestConsumer;
-import com.example.kanye.business.QuoteService;
-import com.example.kanye.data.Quote;
-import com.example.kanye.model.popculture.PopCultureType;
-import com.example.kanye.util.QuoteType;
+import com.example.kanye.quote.api.RestConsumer;
+import com.example.kanye.quote.service.QuoteService;
+import com.example.kanye.quote.data.Quote;
+import com.example.kanye.quote.model.popculture.PopCultureType;
+import com.example.kanye.quote.util.QuoteType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;

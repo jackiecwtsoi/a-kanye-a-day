@@ -1,4 +1,4 @@
-package com.example.kanye.config;
+package com.example.kanye.quote.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

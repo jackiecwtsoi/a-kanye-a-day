@@ -1,9 +1,10 @@
 package com.example.kanye.webservice;
 
-import com.example.kanye.api.RestConsumer;
-import com.example.kanye.business.QuoteService;
-import com.example.kanye.data.Quote;
-import com.example.kanye.util.QuoteType;
+import com.example.kanye.quote.api.RestConsumer;
+import com.example.kanye.quote.service.QuoteService;
+import com.example.kanye.quote.controller.QuoteController;
+import com.example.kanye.quote.data.Quote;
+import com.example.kanye.quote.util.QuoteType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

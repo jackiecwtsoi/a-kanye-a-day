@@ -1,18 +1,14 @@
-package com.example.kanye.api;
+package com.example.kanye.quote.api;
 
-import com.example.kanye.data.Quote;
-import com.example.kanye.model.KanyeQuote;
-import com.example.kanye.model.AnimeQuote;
-import com.example.kanye.model.popculture.GOTQuote;
-import com.example.kanye.model.popculture.PopCultureQuote;
-import com.example.kanye.util.QuoteType;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import org.apache.tomcat.util.json.JSONParser;
+import com.example.kanye.quote.data.Quote;
+import com.example.kanye.quote.model.KanyeQuote;
+import com.example.kanye.quote.model.AnimeQuote;
+import com.example.kanye.quote.model.popculture.GOTQuote;
+import com.example.kanye.quote.model.popculture.PopCultureQuote;
+import com.example.kanye.quote.util.QuoteType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 

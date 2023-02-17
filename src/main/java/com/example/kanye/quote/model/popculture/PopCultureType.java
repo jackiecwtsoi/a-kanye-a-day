@@ -1,4 +1,4 @@
-package com.example.kanye.model.popculture;
+package com.example.kanye.quote.model.popculture;
 
 public enum PopCultureType {
     BOOK,
