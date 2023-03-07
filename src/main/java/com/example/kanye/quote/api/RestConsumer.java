@@ -30,6 +30,7 @@ public class RestConsumer {
                         "https://api.kanye.rest/",
                         KanyeQuote.class
                 );
+                System.out.println(quote);
                 quote.setQuoteAuthor("Kanye West");
             }
             case ANIME -> {
@@ -63,7 +64,7 @@ public class RestConsumer {
                             );
                             if (gotQuotes.length != 0) {
                                 quote = new Quote();
-                                quote.setQuote(gotQuotes[0].getQuoteString());
+                                quote.setQuoteString(gotQuotes[0].getQuoteString());
                                 quote.setQuoteAuthor(gotQuotes[0].getCharacter().getQuoteAuthor());
                             } else {
                                 throw new NullPointerException("The extracted list does not contain any quote.");

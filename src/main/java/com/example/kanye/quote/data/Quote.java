@@ -43,12 +43,12 @@ public class Quote {
         this.quoteAuthor = quoteAuthor;
     }
 
-    public String getQuote() {
+    public String getQuoteString() {
         return quoteString;
     }
 
-    public void setQuote(String quote) {
-        this.quoteString = quote;
+    public void setQuoteString(String quoteString) {
+        this.quoteString = quoteString;
     }
 
     public QuoteType getQuoteType() {
@@ -80,7 +80,7 @@ public class Quote {
 
     public String toStringForPrinting() {
         String result = getQuoteAuthor() + ": \"" +
-                getQuote() + "\"";
+                getQuoteString() + "\"";
         return result;
     }
 }

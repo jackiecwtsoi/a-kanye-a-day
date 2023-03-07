@@ -44,10 +44,10 @@ class QuoteControllerIntegrationTest {
     void setSampleQuotes() {
         quote1 = new Quote();
         quote1.setQuoteAuthor("Sample Author");
-        quote1.setQuote("Hello, World!");
+        quote1.setQuoteString("Hello, World!");
         quote2 = new Quote();
         quote2.setQuoteAuthor("Sample Author");
-        quote2.setQuote("This is a Java application.");
+        quote2.setQuoteString("This is a Java application.");
     }
 
     void loadQuoteTypeStrings() {
