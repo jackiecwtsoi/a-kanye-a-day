@@ -8,11 +8,10 @@ public enum QuoteType {
 
     @Override
     public String toString() {
-        switch(this) {
-            case CELEBRITY: return "Celebrity";
-            case ANIME: return "Anime";
-            case POP_CULTURE: return "Pop Culture";
-            default: throw new IllegalArgumentException();
-        }
+        return switch (this) {
+            case CELEBRITY -> "Celebrity";
+            case ANIME -> "Anime";
+            case POP_CULTURE -> "Pop Culture";
+        };
     }
 }

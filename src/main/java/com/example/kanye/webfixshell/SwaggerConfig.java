@@ -1,4 +1,4 @@
-//package com.example.kanye.config;
+//package com.example.kanye.webfixshell;
 //
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -25,6 +25,10 @@
 //    private ApiInfo metaData() {
 //        return new ApiInfoBuilder()
 //                .title("A Kanye A Day - Spring Boot Swagger Configuration")
+//                .description("Swagger configuration for application")
+//                .version("1.1.0")
+//                .license("Apache 2.0")
+//                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"")
 //                .build();
 //    }
 //}

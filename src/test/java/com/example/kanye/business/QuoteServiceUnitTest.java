@@ -1,5 +1,6 @@
 package com.example.kanye.business;
 
+import com.example.kanye.exception.QuoteNotFoundException;
 import com.example.kanye.quote.data.Quote;
 import com.example.kanye.quote.data.QuoteRepository;
 import com.example.kanye.quote.service.QuoteService;
@@ -31,19 +32,19 @@ class QuoteServiceUnitTest {
     void setSampleQuotes() {
         quote1 = new Quote();
         quote1.setQuoteAuthor("Sample Author");
-        quote1.setQuote("Hello, World!");
+        quote1.setQuoteString("Hello, World!");
         quote2 = new Quote();
         quote2.setQuoteAuthor("Sample Author");
-        quote2.setQuote("This is a Java application.");
+        quote2.setQuoteString("This is a Java application.");
     }
 
     @Test
-    void getAllQuotesByAuthorNotNull() {
+    void getAllQuotesByAuthorNotNull() throws QuoteNotFoundException {
         List<Quote> expectedQuotes = new ArrayList<>();
         expectedQuotes.add(quote1);
         expectedQuotes.add(quote2);
 
-        when(quoteRepository.findAllQuotesByAuthor(anyString())).thenReturn(Optional.of(expectedQuotes));
+        when(quoteRepository.findAllQuotesByAuthor(anyString())).thenReturn(expectedQuotes);
         assertEquals(expectedQuotes, quoteService.getAllQuotesByAuthor("Sample Author"));
     }
 

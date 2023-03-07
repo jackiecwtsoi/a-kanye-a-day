@@ -10,8 +10,8 @@ import java.util.Optional;
 
 public interface QuoteRepository extends JpaRepository<Quote, Long> {
     @Query("SELECT q FROM Quote q WHERE q.quoteAuthor = ?1")
-    Optional<List<Quote>> findAllQuotesByAuthor(String quoteAuthor);
+    List<Quote> findAllQuotesByAuthor(String quoteAuthor);
 
     @Query("SELECT q from Quote q WHERE q.quoteType = ?1")
-    Optional<List<Quote>> findAllQuotesByType(QuoteType quoteType);
+    List<Quote> findAllQuotesByType(QuoteType quoteType);
 }

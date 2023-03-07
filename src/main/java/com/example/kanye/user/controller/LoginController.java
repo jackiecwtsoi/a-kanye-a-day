@@ -15,7 +15,7 @@ public class LoginController {
     }
 
     // This should be a login landing page where the user can enter info to log in or register
-    @GetMapping(path="/")
+    @GetMapping(path="")
     public Object login() {
         // FIXME: delete these hardcoded info and replace by user input on web page
         String email = "helenchoi@gmail.com";
@@ -23,7 +23,6 @@ public class LoginController {
 
         // 1. Verify user info against our USERS database
         this.loginService.verifyUser(email, password);
-
         return "logged in";
     }
 
