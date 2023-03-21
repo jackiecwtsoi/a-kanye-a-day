@@ -1,6 +1,6 @@
 package com.example.kanye.webservice;
 
-import com.example.kanye.quote.api.RestConsumer;
+import com.example.kanye.quote.api.ExternalQuoteApiConsumer;
 import com.example.kanye.quote.service.QuoteService;
 import com.example.kanye.quote.controller.QuoteController;
 import com.example.kanye.quote.data.Quote;
@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -29,7 +30,7 @@ class QuoteControllerIntegrationTest {
     @MockBean
     private QuoteService quoteService;
     @MockBean
-    private RestConsumer restConsumer;
+    private ExternalQuoteApiConsumer externalQuoteApiConsumer;
     @Autowired
     private MockMvc mockMvc;
 
@@ -61,9 +62,9 @@ class QuoteControllerIntegrationTest {
     void getQuoteFromExternal() throws Exception {
         String expectedString = "Sample Author: \"Hello, World!\"";
 
-        when(restConsumer
+        when(externalQuoteApiConsumer
                 .getQuoteByTypeFromExternal(any(QuoteType.class), any(Map.class)))
-                .thenReturn(quote1);
+                .thenReturn(Optional.of(quote1));
         doNothing().when(quoteService).saveQuoteFromExternal(quote1);
         when(quoteService.getStringForPrinting(any(Quote.class)))
                 .thenReturn(quote1.toStringForPrinting());
