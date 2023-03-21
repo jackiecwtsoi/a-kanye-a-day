@@ -1,7 +1,7 @@
 package com.example.kanye.quote.controller;
 
 import com.example.kanye.exception.QuoteNotFoundException;
-import com.example.kanye.quote.api.RestConsumer;
+import com.example.kanye.quote.api.ExternalQuoteApiConsumer;
 import com.example.kanye.quote.service.QuoteService;
 import com.example.kanye.quote.data.Quote;
 import com.example.kanye.quote.model.popculture.PopCultureType;
@@ -19,11 +19,11 @@ import java.util.Optional;
 @RequestMapping("/quote")
 public class QuoteController {
     private final QuoteService quoteService;
-    private final RestConsumer restConsumer;
+    private final ExternalQuoteApiConsumer externalQuoteApiConsumer;
 
-    public QuoteController(QuoteService quoteService, RestConsumer restConsumer) {
+    public QuoteController(QuoteService quoteService, ExternalQuoteApiConsumer externalQuoteApiConsumer) {
         this.quoteService = quoteService;
-        this.restConsumer = restConsumer;
+        this.externalQuoteApiConsumer = externalQuoteApiConsumer;
     }
 
     // Access a random quote based on a specified quote type
@@ -47,12 +47,12 @@ public class QuoteController {
         }
         // FIXME: delete hardcorded properties
         Map<String, Object> properties = new HashMap<>();
-        properties.put("popCultureType", PopCultureType.TV_SERIES);
-        properties.put("popCultureName", "Breaking Bad");
-        Quote quote = this.restConsumer.getQuoteByTypeFromExternal(quoteType, properties);
-        this.quoteService.saveQuoteFromExternal(quote);
-        return quote.toStringForPrinting();
-    }
+        properties.put("popCultureType", PopCultureType.BOOK);
+        properties.put("popCultureName", "A Game of ");
+        Optional<Quote> quoteOpt = this.externalQuoteApiConsumer.getQuoteByTypeFromExternal(quoteType, properties);
+        quoteOpt.ifPresent(this.quoteService::saveQuoteFromExternal);
+        return quoteOpt.map(this.quoteService::getStringForPrinting).orElse("No quote available for your requested type!");
+   }
 
     // Get a random quote or all quotes by a specific author
     @GetMapping(path="")

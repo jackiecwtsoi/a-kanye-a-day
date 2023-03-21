@@ -1,7 +1,16 @@
 package com.example.kanye.quote.data;
 
 import com.example.kanye.quote.util.QuoteType;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 import java.util.Map;
 
@@ -25,7 +34,7 @@ public class Quote {
     private QuoteType quoteType;
 
     @Transient
-    private Map properties;
+    private Map<String, Object> properties;
 
     public long getQuoteId() {
         return quoteId;
@@ -63,7 +72,7 @@ public class Quote {
         return properties;
     }
 
-    public void setProperties(Map properties) {
+    public void setProperties(Map<String, Object> properties) {
         this.properties = properties;
     }
 
