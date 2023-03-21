@@ -14,7 +14,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Map;
 import java.util.Optional;
 
-@Component
 public class ExternalQuoteApiConsumerImpl implements ExternalQuoteApiConsumer {
     Logger LOGGER = LoggerFactory.getLogger(ExternalQuoteApiConsumerImpl.class);
 
