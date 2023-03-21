@@ -79,8 +79,39 @@ public class Quote {
     }
 
     public String toStringForPrinting() {
-        String result = getQuoteAuthor() + ": \"" +
+        return getQuoteAuthor() + ": \"" +
                 getQuoteString() + "\"";
-        return result;
+    }
+
+    public static Quote.Builder builder() {
+        return new Quote.Builder();
+    }
+
+    public static class Builder {
+        private final Quote quote;
+
+        // Constructor of the Quote.Builder class
+        private Builder() {
+            quote = new Quote();
+        }
+
+        public Builder setQuoteAuthor(final String quoteAuthor) {
+            quote.quoteAuthor = quoteAuthor;
+            return this;
+        }
+
+        public Builder setQuoteString(final String quoteString) {
+            quote.quoteString = quoteString;
+            return this;
+        }
+
+        public Builder setQuoteType(final QuoteType quoteType) {
+            quote.quoteType = quoteType;
+            return this;
+        }
+
+        public Quote build() {
+            return quote;
+        }
     }
 }
